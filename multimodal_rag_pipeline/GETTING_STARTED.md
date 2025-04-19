@@ -2,6 +2,13 @@
 
 This guide will help you get started with the Multimodal RAG Pipeline, a comprehensive system for processing documents containing text, images, audio, and complex PDF layouts.
 
+## Hybrid VSCode/Google Colab Workflow
+
+The pipeline is designed to support a hybrid workflow:
+1. Design and develop the pipeline architecture in VSCode
+2. Implement GPU-intensive components to run in Google Colab
+3. Create a modular design that works across both environments
+
 ## Installation
 
 ### Option 1: Install from the current directory
@@ -20,7 +27,7 @@ pip install -e ".[pdf,image,vector_db]"
 ### Option 2: Install from GitHub
 
 ```bash
-pip install git+https://github.com/YOUR_USERNAME/multimodal_rag_pipeline.git
+pip install git+https://github.com/jimimased/multimodal_rag_pipeline.git
 ```
 
 ## Basic Usage
@@ -89,6 +96,33 @@ For GPU-intensive tasks, you can use the provided Jupyter notebook in Google Col
 3. Run the cells to process documents, generate embeddings, and query the system
 
 ## Next Steps
+
+### Google Drive Integration
+
+The pipeline supports loading data from Google Drive when running in Google Colab:
+
+```python
+# In a Google Colab notebook
+from google.colab import drive
+drive.mount('/content/drive')
+
+# Load images from Google Drive
+from multimodal_rag_pipeline.examples.artistic_style_analysis_example import load_images_from_gdrive
+
+# Path to your Google Drive folder containing images
+gdrive_path = "/content/drive/MyDrive/SUMBA"  # Change to your folder path
+images = load_images_from_gdrive(gdrive_path)
+
+# Process the images
+# ...
+```
+
+You can also use the provided example script with Google Drive integration:
+
+```bash
+# Run the artistic style analysis example with Google Drive
+python -m multimodal_rag_pipeline.examples.artistic_style_analysis_example --gdrive /content/drive/MyDrive/SUMBA
+```
 
 ### Implementing Missing Components
 

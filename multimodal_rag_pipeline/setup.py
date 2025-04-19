@@ -14,7 +14,7 @@ setup(
     description="A comprehensive multimodal RAG pipeline for processing documents with text, images, and audio",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/multimodal_rag_pipeline",
+    url="https://github.com/jimimased/multimodal_rag_pipeline",
     packages=find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -66,7 +66,7 @@ This will generate two diagram files:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/multimodal_rag_pipeline.git
+git clone https://github.com/jimimased/multimodal_rag_pipeline.git
 cd multimodal_rag_pipeline
 ```
 
