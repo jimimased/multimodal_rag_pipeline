@@ -1,6 +1,6 @@
 # Multimodal RAG Pipeline
 
-A comprehensive multimodal Retrieval Augmented Generation (RAG) pipeline that can process documents containing text, images, audio, and complex PDF layouts. This system extracts, analyzes, and indexes content from multiple modalities to enable enhanced information retrieval and generation.
+A comprehensive multimodal Retrieval Augmented Generation (RAG) pipeline that can process documents containing text, images, audio, and complex PDF layouts. This system extracts, analyzes, and indexes content from multiple modalities to enable enhanced information retrieval and generation Anthropology & Cultural studies.
 
 ## Features
 
