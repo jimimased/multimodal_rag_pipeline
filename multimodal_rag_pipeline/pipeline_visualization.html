@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimodal RAG Pipeline Visualization</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .pipeline-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .pipeline {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: stretch;
+            min-width: 1000px;
+        }
+        .pipeline-stage {
+            flex: 1;
+            margin: 0 10px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .stage-title {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .component {
+            background-color: white;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .arrow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #7f8c8d;
+        }
+        .doc-processing { background-color: #f9d5e5; }
+        .content-processing { background-color: #d5f9e5; }
+        .embedding { background-color: #d5e5f9; }
+        .retrieval { background-color: #f9f9d5; }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .component-details {
+            margin-top: 30px;
+        }
+        .detail-section {
+            margin-bottom: 20px;
+        }
+        .detail-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .detail-content {
+            background-color: white;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .artistic-style {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #e8f4f8;
+            border-radius: 8px;
+        }
+        .artistic-style h2 {
+            color: #3498db;
+        }
+        .style-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .style-component {
+            background-color: white;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 200px;
+        }
+        .style-arrow {
+            font-size: 24px;
+            color: #7f8c8d;
+            margin: 5px 0;
+        }
+        .style-row {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Multimodal RAG Pipeline Visualization</h1>
+        <p>This visualization shows the architecture of the Multimodal RAG Pipeline, which processes documents containing text, images, audio, and complex layouts to enable enhanced information retrieval and generation.</p>
+        
+        <div class="pipeline-container">
+            <div class="pipeline">
+                <div class="pipeline-stage doc-processing">
+                    <div class="stage-title">Document Processing</div>
+                    <div class="component">Document Loaders</div>
+                    <div class="component">Metadata Extraction</div>
+                    <div class="component">Layout Analysis</div>
+                    <div class="component">Modality Extraction</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="pipeline-stage content-processing">
+                    <div class="stage-title">Content Processing</div>
+                    <div class="component">Text Processing</div>
+                    <div class="component">Image Analysis</div>
+                    <div class="component">Artistic Style Analysis</div>
+                    <div class="component">Multimodal Fusion</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="pipeline-stage embedding">
+                    <div class="stage-title">Embedding & Indexing</div>
+                    <div class="component">Text Embeddings</div>
+                    <div class="component">Image Embeddings</div>
+                    <div class="component">Style Embeddings</div>
+                    <div class="component">Vector Database</div>
+                </div>
+                <div class="arrow">→</div>
+                <div class="pipeline-stage retrieval">
+                    <div class="stage-title">Retrieval & Generation</div>
+                    <div class="component">Query Understanding</div>
+                    <div class="component">Hybrid Retrieval</div>
+                    <div class="component">LLM Integration</div>
+                    <div class="component">Response Generation</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="component-details">
+            <h2>Component Details</h2>
+            
+            <div class="detail-section">
+                <div class="detail-title">Document Processing</div>
+                <div class="detail-content">
+                    <p><strong>Document Loaders:</strong> Load and parse documents from various formats (PDF, DOCX, HTML, etc.)</p>
+                    <p><strong>Metadata Extraction:</strong> Extract file properties and structural information</p>
+                    <p><strong>Layout Analysis:</strong> Analyze document structure, detect tables, figures, headers, and footers</p>
+                    <p><strong>Modality Extraction:</strong> Extract text, images, and audio while preserving context</p>
+                </div>
+            </div>
+            
+            <div class="detail-section">
+                <div class="detail-title">Content Processing</div>
+                <div class="detail-content">
+                    <p><strong>Text Processing:</strong> Semantic chunking, named entity recognition, and text classification</p>
+                    <p><strong>Image Analysis:</strong> OCR, image captioning, and object detection</p>
+                    <p><strong>Artistic Style Analysis:</strong> Analyze artistic styles in images using multimodal embeddings</p>
+                    <p><strong>Multimodal Fusion:</strong> Cross-modal relationship mapping and context preservation</p>
+                </div>
+            </div>
+            
+            <div class="detail-section">
+                <div class="detail-title">Embedding & Indexing</div>
+                <div class="detail-content">
+                    <p><strong>Text Embeddings:</strong> Generate embeddings using state-of-the-art models</p>
+                    <p><strong>Image Embeddings:</strong> Generate embeddings using vision models</p>
+                    <p><strong>Style Embeddings:</strong> Generate embeddings for artistic styles</p>
+                    <p><strong>Vector Database:</strong> Store and index embeddings for efficient retrieval</p>
+                </div>
+            </div>
+            
+            <div class="detail-section">
+                <div class="detail-title">Retrieval & Generation</div>
+                <div class="detail-content">
+                    <p><strong>Query Understanding:</strong> Analyze and process user queries</p>
+                    <p><strong>Hybrid Retrieval:</strong> Combine BM25 and vector search for optimal results</p>
+                    <p><strong>LLM Integration:</strong> Use prompt engineering templates for multimodal RAG</p>
+                    <p><strong>Response Generation:</strong> Generate responses with validation and citation</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="artistic-style">
+            <h2>Artistic Style Analysis Integration</h2>
+            <p>The pipeline includes specialized components for analyzing artistic styles in images, similar to the approach described in the <a href="https://huggingface.co/learn/cookbook/en/analyzing_art_with_hf_and_fiftyone" target="_blank">Hugging Face cookbook article on analyzing art</a>.</p>
+            
+            <div class="style-diagram">
+                <div class="style-component">Artwork Image</div>
+                <div class="style-arrow">↓</div>
+                <div class="style-component">Style Analyzer</div>
+                <div class="style-arrow">↓</div>
+                <div class="style-row">
+                    <div class="style-component">CLIP Model</div>
+                    <div class="style-component">ViT Model</div>
+                </div>
+                <div class="style-arrow">↓</div>
+                <div class="style-component">Style Embeddings</div>
+                <div class="style-arrow">↓</div>
+                <div class="style-row">
+                    <div class="style-component">Style Classification</div>
+                    <div class="style-component">Style Similarity</div>
+                </div>
+                <div class="style-arrow">↓</div>
+                <div class="style-component">RAG Integration</div>
+            </div>
+            
+            <p>This integration enables:</p>
+            <ul>
+                <li>Classification of images by artistic style</li>
+                <li>Finding images with similar artistic styles</li>
+                <li>Analyzing style relationships between different artworks</li>
+                <li>Incorporating artistic style understanding in RAG responses</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>Multimodal RAG Pipeline - A comprehensive system for processing documents with text, images, audio, and complex layouts</p>
+    </div>
+</body>
+</html>

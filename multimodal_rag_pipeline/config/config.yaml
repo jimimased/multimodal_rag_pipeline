@@ -1,0 +1,181 @@
+# Multimodal RAG Pipeline Configuration
+
+# General settings
+general:
+  debug: false
+  cache_dir: ".cache"
+  temp_dir: ".temp"
+  use_gpu: true
+  batch_size: 16
+  random_seed: 42
+
+# Document processing settings
+document_processing:
+  document_loaders:
+    pdf:
+      engine: "pypdf"  # Options: pypdf, pdfplumber, unstructured
+      extract_images: true
+      ocr_fallback: true
+    docx:
+      extract_images: true
+      preserve_formatting: true
+    html:
+      extract_images: true
+      clean_html: true
+      extract_tables: true
+  
+  metadata_extraction:
+    extract_file_metadata: true
+    extract_document_metadata: true
+    custom_metadata_fields: []
+  
+  layout_analysis:
+    engine: "layoutparser"  # Options: layoutparser, unstructured, custom
+    model: "lp://PubLayNet/mask_rcnn_X_101_32x8d_FPN_3x/config"
+    detect_tables: true
+    detect_figures: true
+    detect_headers: true
+    detect_footers: true
+    detect_page_numbers: true
+  
+  modality_extraction:
+    text:
+      preserve_paragraphs: true
+      normalize_whitespace: true
+      min_block_size: 20
+    images:
+      min_size: [100, 100]
+      formats: ["jpg", "png", "jpeg"]
+      save_extracted: true
+      output_format: "png"
+    audio:
+      formats: ["mp3", "wav", "m4a"]
+      save_extracted: true
+
+# Content processing settings
+content_processing:
+  text_processing:
+    chunking:
+      method: "semantic"  # Options: semantic, fixed_size, paragraph, recursive
+      chunk_size: 512
+      chunk_overlap: 50
+      separator: "\n\n"
+    ner:
+      model: "spacy"  # Options: spacy, transformers, stanza
+      spacy_model: "en_core_web_trf"
+      entity_types: ["PERSON", "ORG", "GPE", "LOC", "DATE", "TIME"]
+    classification:
+      enabled: true
+      model: "distilbert-base-uncased"
+      labels: ["header", "body", "footer", "table", "caption", "reference"]
+  
+  image_analysis:
+    ocr:
+      engine: "tesseract"  # Options: tesseract, easyocr, azure
+      language: "eng"
+      page_segmentation_mode: 6
+    captioning:
+      model: "Salesforce/blip-image-captioning-large"
+      max_length: 50
+    object_detection:
+      enabled: true
+      model: "facebook/detr-resnet-50"
+      confidence_threshold: 0.5
+    style_analysis:
+      enabled: true
+      model: "clip"
+  
+  multimodal_fusion:
+    text_image_alignment:
+      method: "position_based"  # Options: position_based, content_based, hybrid
+      max_distance: 500  # pixels
+    context_preservation:
+      include_surrounding_text: true
+      max_context_length: 1000
+    synthesis:
+      create_multipart_chunks: true
+      include_image_captions: true
+      include_image_ocr: true
+
+# Embedding and indexing settings
+embedding:
+  text:
+    model: "sentence-transformers/all-mpnet-base-v2"
+    dimension: 768
+    batch_size: 32
+    normalize: true
+    pooling: "mean"  # Options: mean, max, cls
+  
+  image:
+    model: "openai/clip-vit-base-patch32"
+    dimension: 512
+    batch_size: 16
+    normalize: true
+    use_cache: true
+
+vector_db:
+  provider: "chroma"  # Options: chroma, pinecone, weaviate, qdrant
+  collection_name: "multimodal_rag"
+  distance_metric: "cosine"  # Options: cosine, euclidean, dot
+  index_params:
+    chroma:
+      persist_directory: "chroma_db"
+    pinecone:
+      index_name: "multimodal-rag"
+      metric: "cosine"
+      pod_type: "p1"
+    weaviate:
+      url: "http://localhost:8080"
+      class_name: "MultimodalDocument"
+    qdrant:
+      location: ":memory:"
+      collection_name: "multimodal_rag"
+
+# Retrieval and generation settings
+retrieval:
+  query:
+    rewrite_query: true
+    expand_query: true
+    use_hybrid_search: true
+    bm25_weight: 0.3
+    vector_weight: 0.7
+    top_k: 10
+    diversity_factor: 0.3
+  
+  llm:
+    provider: "openai"  # Options: openai, anthropic, huggingface
+    model: "gpt-4-vision-preview"
+    temperature: 0.7
+    max_tokens: 1000
+    prompt_template: |
+      You are a helpful assistant that answers questions based on the provided context.
+      
+      Context:
+      {context}
+      
+      Question: {query}
+      
+      Answer the question based on the context provided. If the answer cannot be found in the context, say "I don't have enough information to answer this question." Include relevant citations from the context.
+    
+    response_format:
+      include_citations: true
+      include_confidence: true
+      structured_output: false
+
+# Evaluation settings
+evaluation:
+  metrics:
+    retrieval:
+      - "precision@k"
+      - "recall@k"
+      - "ndcg@k"
+      - "map"
+    generation:
+      - "rouge"
+      - "bertscore"
+      - "human_eval"
+  
+  benchmarks:
+    dataset_path: "evaluation/datasets"
+    save_results: true
+    output_path: "evaluation/results"
