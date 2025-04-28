@@ -4,6 +4,8 @@ A comprehensive multimodal Retrieval Augmented Generation (RAG) pipeline that ca
 
 # Multimodal RAG Pipeline
 
+# Multimodal RAG Pipeline
+
 ## Architecture
 
 ```mermaid
@@ -83,6 +85,7 @@ flowchart TD
     PromptEng --> LLM
     LLM --> ResponseGen
     ResponseGen --> FinalResponse[Final Response]
+
 
 ## Features
 
