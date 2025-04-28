@@ -2,6 +2,8 @@
 
 A comprehensive multimodal Retrieval Augmented Generation (RAG) pipeline that can process text, images, audio, and complex PDF layouts. This system extracts, analyzes, and indexes content from multiple modalities to a vectorisation model to enable enhanced information retrieval and aesthetic analysis via LLM in Anthropology & Cultural studies.
 
+<img width="906" alt="Screen Shot 2025-04-28 at 5 19 20 pm" src="https://github.com/user-attachments/assets/dc3608e3-73c8-44fc-a6fb-21008838c898" />
+
 
 ## Features
 
