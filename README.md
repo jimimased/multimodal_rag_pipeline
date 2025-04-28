@@ -5,6 +5,7 @@ A comprehensive multimodal Retrieval Augmented Generation (RAG) pipeline that ca
 # Multimodal RAG Pipeline
 
 ## Architecture
+
 ```mermaid
 flowchart TD
     subgraph Input
